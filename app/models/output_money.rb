@@ -1,0 +1,2 @@
+class OutputMoney < ApplicationRecord
+end

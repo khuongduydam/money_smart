@@ -1,0 +1,46 @@
+br
+.container
+  h3.text-center MONEY SMART
+  /= link_to 'New', new_daily_cash_path, class: 'btn btn-info btn-md new'
+  button.btn.btn-info.btn-md.new 
+    i.fa.fa-plus[aria-hidden="true"]
+  .clearfix
+  p
+  .table-responsive.daily-cash
+    table.table.table-bordered
+      thead
+        tr.success[style="color:chocolate"]
+          th ID
+          th Reason
+          th From
+          th To
+          th Date
+          th Money
+      tbody
+        - if @daily_cashes
+          - @daily_cashes.each do |d|
+            tr
+              td = d.id
+              td = d.reason
+              td = d.from
+              td = d.to
+              td = d.with_draw_date
+              td 
+                = number_to_currency(d.money, precision: 0, unit: "", delimiter: ".")
+                | (vnd)
+
+  .modal.fade#new
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close[type="button" data-dismiss="modal"] &times;
+          h4.modal-title New Daily Cash
+        .modal-body
+          = render 'form'
+        / .modal-footer
+          button.btn.btn-danger[type="button" data-dismiss="modal"] Close
+
+javascript:
+  $('.new').click(function(){
+    $('#new').modal('show')
+  })
