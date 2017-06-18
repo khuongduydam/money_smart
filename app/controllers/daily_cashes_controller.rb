@@ -1,8 +1,8 @@
 class DailyCashesController < ApplicationController
   before_action :find_daily_cash, only: [:destroy, :update]
   def index
-    @daily_cashes = DailyCash.order('id asc')
-    @input_moneys = InputMoney.order('id asc')
+    @daily_cashes = DailyCash.paginate(:page => params[:page], :per_page => 10).order('with_draw_date asc')
+    @input_moneys = InputMoney.paginate(:page => params[:page], :per_page => 10).order('input_date asc')
     @daily_cash = DailyCash.new()
     @input_money = InputMoney.new()
   end
@@ -17,6 +17,8 @@ class DailyCashesController < ApplicationController
   def create
     @daily_cash = DailyCash.new(daily_cash_params)
     if @daily_cash.save
+      @daily_cash.money = @daily_cash.detail_outputs.pluck(:money).sum()
+      @daily_cash.save!
       flash[:success] = "Create Daily Cash success"
       redirect_to daily_cashes_path
     else
@@ -27,6 +29,8 @@ class DailyCashesController < ApplicationController
 
   def update
     if @daily_cash.update(daily_cash_params)
+      @daily_cash.money = @daily_cash.detail_outputs.pluck(:money).sum()
+      @daily_cash.save!
       flash[:success] = "Update Daily Cash success"
       redirect_to daily_cashes_path
     else
@@ -82,6 +86,6 @@ class DailyCashesController < ApplicationController
   end
 
   def daily_cash_params
-    params.require(:daily_cash).permit(:reason, :with_draw_date, :money, :from, :to)
+    params.require(:daily_cash).permit(:with_draw_date, :from, :to, detail_outputs_attributes:[:id, :content, :money, :_destroy])
   end
 end

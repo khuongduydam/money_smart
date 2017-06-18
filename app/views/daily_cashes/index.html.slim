@@ -31,18 +31,19 @@ br
                 - @daily_cashes.each do |d|
                   tr 
                     td.stt = d.id
-                    td[style="max-width:500px;white-space: pre-line;"] = d.reason
+                    td[style="max-width:500px;white-space: pre-line;"] = d.detail_outputs.pluck(:content).join("\n")
                     td = d.from
                     td = d.to
                     td = d.with_draw_date
                     td 
-                      = number_to_currency(d.money, precision: 0, unit: "", delimiter: ".")
+                      = number_to_currency(d.detail_outputs.pluck(:money).sum(), precision: 0, unit: "", delimiter: ".")
                       | (vnd)
                       button.pull-right.edit_daily_cash.btn.btn-primary.btn-sm  
                         i.fa.fa-pencil-square-o
                       / = link_to 'Sửa', edit_daily_cash_path(d), class: 'pull-right'  
                       | 
                       = link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, daily_cash_path(d), method: :delete, data: {confirm: 'Chắc chắn xoá?'}, class: 'pull-right btn btn-danger btn-sm', style: 'margin-right: 1.5em'
+                = will_paginate @daily_cashes, renderer: BootstrapPagination::Rails      
       #thu.tab-pane.fade                
         button.btn.btn-info.btn-md.thu 
           i.fa.fa-plus[aria-hidden="true"]
@@ -73,6 +74,7 @@ br
                       / = link_to 'Sửa', edit_daily_cash_path(d), class: 'pull-right'  
                       | 
                       = link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, input_money_path(d), method: :delete, data: {confirm: 'Chắc chắn xoá?'}, class: 'pull-right btn btn-danger btn-sm', style: 'margin-right: 1.5em'
+                = will_paginate @input_moneys, renderer: BootstrapPagination::Rails      
   hr
   h3.text-center Preliminary Statistics
   .row

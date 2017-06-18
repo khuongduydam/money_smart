@@ -3,11 +3,15 @@
   p
   = f.input :to, input_html:{class: 'form-control'}
   p
-  = f.input :reason,as: :text, input_html:{class: 'form-control'}
+  #items
+    p  
+    = f.simple_fields_for :detail_outputs do |d|
+      = render 'detail_output_fields', f: d
+    p
+    .links
+      = link_to_add_association 'Add Item', f, :detail_outputs, class: 'btn btn-info btn-xs'
   p
-  = f.input :money, input_html:{class: 'form-control'}
-  p
-  = f.input :with_draw_date, as: :string, input_html:{class: 'form-control datepicker'}
+  = f.input :with_draw_date, as: :string, input_html:{class: 'form-control datepicker'}, label: 'Date'
   p
   = f.submit 'Finish', class: 'btn btn-success btn-md'
 

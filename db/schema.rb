@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615144101) do
+ActiveRecord::Schema.define(version: 20170618131944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20170615144101) do
     t.datetime "updated_at",     null: false
     t.string   "from"
     t.string   "to"
+  end
+
+  create_table "detail_outputs", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "money"
+    t.integer  "daily_cash_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["daily_cash_id"], name: "index_detail_outputs_on_daily_cash_id", using: :btree
   end
 
   create_table "input_moneys", force: :cascade do |t|
@@ -72,4 +81,5 @@ ActiveRecord::Schema.define(version: 20170615144101) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "detail_outputs", "daily_cashes"
 end
