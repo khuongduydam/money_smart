@@ -42,7 +42,8 @@ $(document).ready(function(){
     viewMode: "months", 
     minViewMode: "months",
     todayHighlight: true,
-    endDate: '0d'
+    endDate: '0d',
+    autoclose: true,
   });
 
   $('button.today').one('click',function(){

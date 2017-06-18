@@ -2,7 +2,8 @@ $('.daily_cash form').empty().html("<%= j render 'daily_cashes/form' %>")
 $('.datepicker').datepicker({
   format: "dd/mm/yyyy",
   todayHighlight: true,
-  endDate: '0d'
+  endDate: '0d',
+  autoclose: true,
 });
 
 $('#edit_daily_cash_'+"<%= @daily_cash.id %>"+'').validate({

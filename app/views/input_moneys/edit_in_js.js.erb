@@ -2,7 +2,8 @@ $('.input_money form').empty().html("<%= j render partial: 'daily_cashes/form_in
 $('.datepicker').datepicker({
   format: "dd/mm/yyyy",
   todayHighlight: true,
-  endDate: '0d'
+  endDate: '0d',
+  autoclose: true,
 });
 
 $('#edit_input_money_'+"<%= @input_money.id %>"+'').validate({
