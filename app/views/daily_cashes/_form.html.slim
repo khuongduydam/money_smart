@@ -14,30 +14,32 @@
 javascript:
   $(document).ready(function(){
     $('.datepicker').datepicker({
-      format: "dd/mm/yyyy"
+      format: "dd/mm/yyyy",
+      todayHighlight: true,
+      endDate: '0d'
     });
-  });
 
-  $('#new_daily_cash').validate({
-    errorPlacement: function (error, element) {
-      error.insertAfter(element);
-      error.css({'color':'red','font-size':'13px'})
-      error.siblings('input').css('border-color','red')
-      error.siblings('textarea').css('border-color','red')
-      // error.siblings('label').css('color','red')
-    },
-    rules:{
-      "daily_cash[from]":{required: true},
-      "daily_cash[to]":{required: true},
-      "daily_cash[reason]":{required: true},
-      "daily_cash[money]":{required: true},
-      "daily_cash[with_draw_date]":{required: true}
-    },
-    messages:{
-      "daily_cash[from]":{required: "Can not be blank"},
-      "daily_cash[to]":{required: "Can not be blank"},
-      "daily_cash[reason]":{required: "Can not be blank"},
-      "daily_cash[money]":{required: "Can not be blank"},
-      "daily_cash[with_draw_date]":{required: "Can not be blank"},
-    }
+    $('#new_daily_cash').validate({
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+        error.css({'color':'red','font-size':'13px'})
+        error.siblings('input').css('border-color','red')
+        error.siblings('textarea').css('border-color','red')
+        // error.siblings('label').css('color','red')
+      },
+      rules:{
+        "daily_cash[from]":{required: true},
+        "daily_cash[to]":{required: true},
+        "daily_cash[reason]":{required: true},
+        "daily_cash[money]":{required: true},
+        "daily_cash[with_draw_date]":{required: true}
+      },
+      messages:{
+        "daily_cash[from]":{required: "Can not be blank"},
+        "daily_cash[to]":{required: "Can not be blank"},
+        "daily_cash[reason]":{required: "Can not be blank"},
+        "daily_cash[money]":{required: "Can not be blank"},
+        "daily_cash[with_draw_date]":{required: "Can not be blank"},
+      }
+    })
   })

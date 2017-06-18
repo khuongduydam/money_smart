@@ -1,17 +1,18 @@
 class DailyCashesController < ApplicationController
   # before_action :authenticate_user!, except: :index
-  before_action :find_daily_cash,except: [:index, :new, :create]
-  
+  before_action :find_daily_cash, only: [:destroy, :update]
   def index
-    @daily_cashes = DailyCash.order('with_draw_date desc')
+    @daily_cashes = DailyCash.order('id asc')
+    @input_moneys = InputMoney.order('id asc')
     @daily_cash = DailyCash.new()
+    @input_money = InputMoney.new()
   end
 
   def new
     @daily_cash = DailyCash.new()
-  end
-
-  def show
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
@@ -21,11 +22,8 @@ class DailyCashesController < ApplicationController
       redirect_to daily_cashes_path
     else
       flash[:error] = @daily_cash.errors.full_messages.join(' | ')
-      render :new
+      redirect_to daily_cashes_path
     end
-  end
-
-  def edit
   end
 
   def update
@@ -34,13 +32,49 @@ class DailyCashesController < ApplicationController
       redirect_to daily_cashes_path
     else
       flash[:error] = @daily_cash.errors.full_messages.join(' | ')
-      render :edit
+      redirect_to daily_cashes_path
     end
   end
 
   def destroy
-    @daily_cash.destroy
-    redirect_to daily_cashes_path
+    flash[:success] = "Delete Daily Cash success"
+    redirect_to daily_cashes_path if @daily_cash.destroy
+  end
+
+  def edit_out_js
+    @daily_cash = DailyCash.find(params[:id_js])
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def total_money_inday_js
+    @total_money_inday =  InputMoney.input_money - DailyCash.output_money
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def money_with_month_js
+    list_month_out = []
+    list_month_in = []
+    DailyCash.all.each do |d|
+      if d.find_month(d.with_draw_date) == d.find_month(params[:month])
+        list_month_out << d.id
+      end
+    end
+    InputMoney.all.each do |i|
+      if i.find_month(i.input_date) == i.find_month(params[:month])
+        list_month_in << i.id
+      end
+    end
+    out_money_with_month = DailyCash.where(id: list_month_out).pluck(:money).sum()
+    in_money_with_month = InputMoney.where(id: list_month_in).pluck(:money).sum()
+    
+    @money_with_month = in_money_with_month - out_money_with_month
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

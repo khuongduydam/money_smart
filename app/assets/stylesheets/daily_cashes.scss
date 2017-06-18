@@ -1,4 +1,4 @@
-#new_daily_cash{
+#new_daily_cash, #new_input_money{
   label{
     font-size: 15px;
     color: slateblue;
@@ -24,4 +24,14 @@ h3.pull-left{
 
 .form-control{
   border-radius: 0;
+}
+
+textarea#daily_cash_reason, textarea#input_money_reason{
+  height: 150px;
+  resize: none;
+}
+
+button.btn.btn-success.btn-block.today, button.btn.btn-success.btn-block.month, input.month {
+  outline: none;
+  border: none;
 }

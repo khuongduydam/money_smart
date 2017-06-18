@@ -1,0 +1,30 @@
+$('.input_money form').empty().html("<%= j render partial: 'daily_cashes/form_input' %>")
+$('.datepicker').datepicker({
+  format: "dd/mm/yyyy",
+  todayHighlight: true,
+  endDate: '0d'
+});
+
+$('#edit_input_money_'+"<%= @input_money.id %>"+'').validate({
+  errorPlacement: function (error, element) {
+    error.insertAfter(element);
+    error.css({'color':'red','font-size':'13px'})
+    error.siblings('input').css('border-color','red')
+    error.siblings('textarea').css('border-color','red')
+    // error.siblings('label').css('color','red')
+  },
+  rules:{
+    "input_money[user_name]":{required: true},
+    "input_money[reason]":{required: true},
+    "input_money[money]":{required: true},
+    "input_money[input_date]":{required: true}
+  },
+  messages:{
+    "input_money[user_name]":{required: "Can not be blank"},
+    "input_money[reason]":{required: "Can not be blank"},
+    "input_money[money]":{required: "Can not be blank"},
+    "input_money[input_date]":{required: "Can not be blank"},
+  }
+})
+if ($('.alert-success ul li').text().includes('Money'))
+  $('a[href="#thu"]').click()

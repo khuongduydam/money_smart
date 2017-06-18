@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'pry'
 gem 'jquery-validation-rails', '~> 1.16'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.4.1'
