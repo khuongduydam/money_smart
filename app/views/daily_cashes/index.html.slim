@@ -31,7 +31,7 @@ br
                 - @daily_cashes.each do |d|
                   tr 
                     td.stt = d.id
-                    td[style="max-width:500px;"] = d.reason
+                    td[style="max-width:500px;white-space: pre-line;"] = d.reason
                     td = d.from
                     td = d.to
                     td = d.with_draw_date
@@ -62,7 +62,7 @@ br
                 - @input_moneys.each do |d|
                   tr 
                     td.stt = d.id
-                    td[style="max-width:500px;"] = d.reason
+                    td[style="max-width:500px;white-space: pre-line;"] = d.reason
                     td = d.user_name
                     td = d.input_date
                     td 
@@ -82,7 +82,7 @@ br
       div.today.text-center.form-control.today style="border: 1px solid cadetblue;color:red;font-size:18px;" readonly=true
         = render 'today_money'
     .col-xs-6.text-center 
-      button.btn.btn-success.btn-block.month style="border-radius:0" Search by month
+      button.btn.btn-success.btn-block.month style="border-radius:0" Search by this-month
       input.month.text-center placeholder="mm/yyyy"
       div.month.text-center.form-control.this-month style="border: 1px solid cadetblue;color:red;font-size:18px;" readonly=true
         = render 'money_with_month'
