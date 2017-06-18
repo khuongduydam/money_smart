@@ -1,7 +1,7 @@
 class InputMoney < ApplicationRecord
 
   def self.input_money
-    pluck(:money).inject(&:+)
+    pluck(:money).inject(&:+).nil? ? 0 : pluck(:money).inject(&:+)
   end
 
   def find_month(date)

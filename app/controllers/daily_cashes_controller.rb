@@ -1,5 +1,4 @@
 class DailyCashesController < ApplicationController
-  # before_action :authenticate_user!, except: :index
   before_action :find_daily_cash, only: [:destroy, :update]
   def index
     @daily_cashes = DailyCash.order('id asc')
@@ -70,7 +69,6 @@ class DailyCashesController < ApplicationController
     end
     out_money_with_month = DailyCash.where(id: list_month_out).pluck(:money).sum()
     in_money_with_month = InputMoney.where(id: list_month_in).pluck(:money).sum()
-    
     @money_with_month = in_money_with_month - out_money_with_month
     respond_to do |format|
       format.js

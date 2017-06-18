@@ -7,6 +7,8 @@ br
         a data-toggle='tab' href='#chi' Chi
       li
         a data-toggle='tab' href='#thu' Thu
+      li.pull-right
+        = link_to 'Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Wanna log out?'}      
     .tab-content
       p
       #chi.tab-pane.fade.in.active
@@ -18,12 +20,12 @@ br
           table.table.table-bordered
             thead
               tr.success[style="color:chocolate"]
-                th Stt
-                th Lý do
-                th Người đưa
-                th Người nhận
-                th Ngày
-                th Số tiền
+                th Id
+                th Reasons
+                th From
+                th To
+                th Date
+                th Cash
             tbody
               - if @daily_cashes
                 - @daily_cashes.each do |d|
@@ -50,11 +52,11 @@ br
           table.table.table-bordered
             thead
               tr.success[style="color:chocolate"]
-                th Stt
-                th Lý do
-                th Tên
-                th Ngày nhập
-                th Số tiền
+                th Id
+                th Reasons
+                th Name
+                th Date 
+                th Cash
             tbody
               - if @input_moneys
                 - @input_moneys.each do |d|
@@ -72,15 +74,15 @@ br
                       | 
                       = link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, input_money_path(d), method: :delete, data: {confirm: 'Chắc chắn xoá?'}, class: 'pull-right btn btn-danger btn-sm', style: 'margin-right: 1.5em'
   hr
-  h3.text-center Thống kê sơ bộ
+  h3.text-center Preliminary Statistics
   .row
     .col-xs-6.text-center 
-      button.btn.btn-success.btn-block.today style="border-radius:0" Tổng Còn
+      button.btn.btn-success.btn-block.today style="border-radius:0" Current Cash
       div.day placeholder="dd/mm/yyyy" readonly=true = Date.today.strftime('%d/%m/%y')
       div.today.text-center.form-control.today style="border: 1px solid cadetblue;color:red;font-size:18px;" readonly=true
         = render 'today_money'
     .col-xs-6.text-center 
-      button.btn.btn-success.btn-block.month style="border-radius:0" Theo tháng
+      button.btn.btn-success.btn-block.month style="border-radius:0" Search by month
       input.month.text-center placeholder="mm/yyyy"
       div.month.text-center.form-control.this-month style="border: 1px solid cadetblue;color:red;font-size:18px;" readonly=true
         = render 'money_with_month'
