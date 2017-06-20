@@ -1,4 +1,5 @@
 class InputMoneysController < ApplicationController
+  layout 'layouts/main_layout'
   before_action :find_input_money,except: [:index, :new, :create, :edit_in_js]
 
   def new
