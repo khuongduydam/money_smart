@@ -2,8 +2,8 @@ class DailyCashesController < ApplicationController
   layout 'layouts/main_layout'
   before_action :find_daily_cash, only: [:destroy, :update]
   def index
-    @daily_cashes = DailyCash.paginate(:page => params[:page], :per_page => 50).order('id asc')
-    @input_moneys = InputMoney.paginate(:page => params[:page], :per_page => 50).order('id asc')
+    @daily_cashes = DailyCash.paginate(:page => params[:page], :per_page => 50).order('id desc')
+    @input_moneys = InputMoney.paginate(:page => params[:page], :per_page => 50).order('id desc')
     @daily_cash = DailyCash.new()
     @input_money = InputMoney.new()
   end
